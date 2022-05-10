@@ -1,0 +1,20 @@
+spring:
+  freemarker:
+    charset: UTF-8
+    content-type: text/html; charset=utf-8
+    suffix: .html
+    template-loader-path: classpath:/templates
+  datasource:
+    url: jdbc:mysql:///rbac
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+  jpa:
+    database: mysql
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
