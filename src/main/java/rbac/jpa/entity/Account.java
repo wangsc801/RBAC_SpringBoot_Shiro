@@ -1,7 +1,6 @@
 package rbac.jpa.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,10 +31,6 @@ public class Account {
 	private Date created;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
 	private Date edited;
-	@Transient
-	private List<String> authenticationList;
-	@Transient
-	private List<String> authorizationList;
 
 	public Integer getId() {
 		return id;
@@ -108,5 +102,12 @@ public class Account {
 
 	public void setEdited(Date edited) {
 		this.edited = edited;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", nickname=" + nickname + ", username=" + username + ", email=" + email
+				+ ", mobile=" + mobile + ", password=" + password + ", birthday=" + birthday + ", created=" + created
+				+ ", edited=" + edited + "]";
 	}
 }

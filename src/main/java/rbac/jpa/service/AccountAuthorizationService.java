@@ -1,17 +1,24 @@
 package rbac.jpa.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rbac.jpa.dao.AccountAuthorizationDao;
+import rbac.jpa.dao.AuthorizationDao;
 import rbac.jpa.entity.AccountAuthorization;
+import rbac.jpa.entity.Authorization;
 
 @Service
 public class AccountAuthorizationService {
 
 	@Autowired
 	AccountAuthorizationDao accountAuthorizationDao;
-
+	@Autowired
+	AuthorizationDao authorizationDao;
+	
 	public void createExamples() {
 		// Alice - user - permissions[login,upload]
 		AccountAuthorization accountAuthen_1_1 = new AccountAuthorization(1,1,1);
@@ -37,5 +44,18 @@ public class AccountAuthorizationService {
 		accountAuthorizationDao.save(accountAuthen_4_2);
 		accountAuthorizationDao.save(accountAuthen_4_3);
 		accountAuthorizationDao.save(accountAuthen_4_4);
+	}
+	
+	List<AccountAuthorization> findByAccountId(Integer accountId){
+		return accountAuthorizationDao.findByAccountId(accountId);
+	}
+	
+	public List<Authorization> findAuthorizationsByAccountId(Integer accountId) {
+		List<Integer> authorIdList = new ArrayList<>();
+		accountAuthorizationDao.findByAccountId(accountId).forEach((aa) -> authorIdList.add(aa.getAuthorizationId()));
+		List<Authorization> authorList = new ArrayList<>();
+		authorIdList
+				.forEach((authorId) -> authorList.add(authorizationDao.findById(authorId).get()));
+		return authorList;
 	}
 }

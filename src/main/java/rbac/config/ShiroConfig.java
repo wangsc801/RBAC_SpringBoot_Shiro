@@ -1,6 +1,6 @@
 package rbac.config;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -31,11 +31,11 @@ public class ShiroConfig {
 			@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
 		ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
 		factoryBean.setSecurityManager(defaultWebSecurityManager);
-		Map<String,String> filterChainDefinition=new Hashtable<>();
-		filterChainDefinition.put("/**", "authc");
-		filterChainDefinition.put("/", "anon");
-		factoryBean.setFilterChainDefinitionMap(filterChainDefinition);
 		factoryBean.setLoginUrl("/login");
+		Map<String,String> filterChainDefinition=new HashMap<>();
+		filterChainDefinition.put("/", "anon");
+		filterChainDefinition.put("/manage", "roles[manager]");
+		factoryBean.setFilterChainDefinitionMap(filterChainDefinition);
 		return factoryBean;
 	}
 }

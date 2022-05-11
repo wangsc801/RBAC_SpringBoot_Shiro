@@ -1,7 +1,6 @@
 package rbac.jpa.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,26 +53,11 @@ public class AccountService {
 		accountDao.save(account_4);
 	}
 
-	public Account findByUsername(String username) {
-		return accountDao.findByUsername(username);
-	}
-	
-	public List<String> findAuthenticationsById(Integer id) {
-		List<Integer> authenIdList = new ArrayList<>();
-		accountAuthenticationDao.findByAccountId(id).forEach((aa) -> authenIdList.add(aa.getAccountId()));
-		List<String> authenList = new ArrayList<>();
-		authenIdList
-				.forEach((authenId) -> authenList.add(authenticationDao.findById(authenId).get().getAuthentication()));
-		return authenList;
+	public Optional<Account> findById(Integer id) {
+		return accountDao.findById(id);
 	}
 
-	public List<String> findAuthorizationsById(Integer accountId) {
-		List<Integer> authorIdList = new ArrayList<>();
-		accountAuthorizationDao.findByAccountId(accountId).forEach((aa) -> authorIdList.add(aa.getAuthorizationId()));
-		//accountAuthorizationDao.findByAccountId(accountId).forEach((aa) -> System.out.println("=>> "+aa.getAuthorizationId()));
-		List<String> authorList = new ArrayList<>();
-		authorIdList
-				.forEach((authorId) -> authorList.add(authorizationDao.findById(authorId).get().getAuthorization()));
-		return authorList;
+	public Account findByUsername(String username) {
+		return accountDao.findByUsername(username);
 	}
 }

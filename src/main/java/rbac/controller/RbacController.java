@@ -31,7 +31,7 @@ public class RbacController {
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		try {
 			subject.login(token);
-			mv.setViewName("manage");
+			mv.setViewName("index");
 			return mv;
 		} catch (UnknownAccountException e) {
 			e.printStackTrace();

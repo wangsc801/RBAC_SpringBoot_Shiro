@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rbac.jpa.dao.AccountAuthenticationDao;
-import rbac.jpa.dao.AccountAuthorizationDao;
 import rbac.jpa.dao.AuthenticationDao;
-import rbac.jpa.dao.AuthorizationDao;
 import rbac.jpa.entity.AccountAuthentication;
+import rbac.jpa.entity.Authentication;
 
 @Service
 public class AccountAuthenticationService {
@@ -19,10 +18,6 @@ public class AccountAuthenticationService {
 	AccountAuthenticationDao accountAuthenticationDao;
 	@Autowired
 	AuthenticationDao authenticationDao;
-	@Autowired
-	AuthorizationDao authorizationDao;
-	@Autowired
-	AccountAuthorizationDao accountAuthorizationDao;
 
 	public void createExamples() {
 		// Alice - user
@@ -43,21 +38,12 @@ public class AccountAuthenticationService {
 		return accountAuthenticationDao.findByAccountId(id);
 	}
 	
-	public List<String> findAuthenticationsById(Integer id) {
-		List<Integer> authenIdList = new ArrayList<>();
-		accountAuthenticationDao.findByAccountId(id).forEach((aa) -> authenIdList.add(aa.getAccountId()));
-		List<String> authenList = new ArrayList<>();
-		authenIdList
-				.forEach((authenId) -> authenList.add(authenticationDao.findById(authenId).get().getAuthentication()));
-		return authenList;
-	}
 
-	public List<String> findAuthorizationsById(Integer accountId) {
-		List<Integer> authorIdList = new ArrayList<>();
-		accountAuthorizationDao.findByAccountId(accountId).forEach((aa) -> authorIdList.add(aa.getId()));
-		List<String> authorList = new ArrayList<>();
-		authorIdList
-				.forEach((authorId) -> authorList.add(authorizationDao.findById(authorId).get().getAuthorization()));
-		return authorList;
+	public List<Authentication> findAuthenticationsByAccountId(Integer accoundId) {
+		List<Integer> authenIdList = new ArrayList<>();
+		accountAuthenticationDao.findByAccountId(accoundId).forEach(aa -> authenIdList.add(aa.getAuthenticationId()));
+		List<Authentication> authenList = new ArrayList<>();
+		authenIdList.forEach(id -> authenList.add(authenticationDao.findById(id).get()));
+		return authenList;
 	}
 }

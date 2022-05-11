@@ -23,7 +23,7 @@ class RbacSpringBootShiroApplicationTests {
 	AccountAuthorizationService accountAuthorizationService;
 	@Autowired
 	AccountAuthenticationService accountAuthenticationService;
-	
+
 	@Test
 	void contextLoads() {
 	}
@@ -38,17 +38,20 @@ class RbacSpringBootShiroApplicationTests {
 	}
 
 	@Test
-	void getAccountAuthentication() {
-		for (int i = 1; i <= 3; i++) {
-			accountService.findAuthenticationsById(i).forEach(System.out::println);
+	void getAccountAuthorizations() {
+		for (int i = 1; i <= 4; i++) {
+			accountAuthorizationService.findAuthorizationsByAccountId(i)
+					.forEach(a -> System.out.println("author >> " + a.getAuthorization()));
+			System.out.println("---");
 		}
 	}
 
 	@Test
-	void getAccountAuthorizations() {
+	void accountAuthentication() {
 		for (int i = 1; i <= 4; i++) {
-			accountService.findAuthorizationsById(i).forEach(System.out::println);
-			System.out.println("---");
+			accountAuthenticationService.findAuthenticationsByAccountId(i)
+					.forEach(a -> System.out.println("authen >> " + a.getAuthentication()));
 		}
 	}
+
 }

@@ -1,0 +1,14 @@
+INFO 11184 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2086 ms
+2022-05-11 10:18:51.318 ERROR 11184 --- [           main] 
+
+o.s.b.web.embedded.tomcat.TomcatStarter  : 
+Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. 
+Message: Error creating bean with name 'org.apache.shiro.spring.config.web.autoconfigure.ShiroWebFilterConfiguration': 
+Unsatisfied dependency expressed through field 'filterMap'; 
+nested exception is org.springframework.beans.factory.BeanCreationException: 
+Error creating bean with name 'shiroFilterFactoryBean': FactoryBean threw exception on object creation; 
+nested exception is java.lang.IllegalArgumentException: There is no filter with name 'manager' to apply to chain [/manage] in the pool of available Filters.  Ensure a filter with that name/path has first been registered with the addFilter method(s).
+2022-05-11 10:18:51.378  INFO 11184 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2022-05-11 10:18:51.421  WARN 11184 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+2022-05-11 10:18:51.422  INFO 11184 --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-11 10:18:51.423  INFO 11184 --- [        
